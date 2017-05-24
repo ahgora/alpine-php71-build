@@ -24,6 +24,9 @@ ENV XDEBUG_ENABLED=false \
 # Application directory
 WORKDIR "/var/www/app"
 
+RUN chgrp -R 0 /var/www/app \
+  && chmod -R g+rwX /var/www/app
+  
 RUN adduser -D -u 1001 default && \
   chown -R default:default /var/www
 
@@ -98,18 +101,15 @@ RUN echo "---> Enabling PHP-Alpine" && \
     sed -i "/zend_extension=xdebug.so/c\;zend_extension=xdebug.so" /etc/php7/conf.d/00_xdebug.ini && \
     rm -rf /tmp/*
 
-    # Installs Caddy
+# Installs Caddy
 RUN curl https://getcaddy.com | bash && \
     chown -R 1001:1001 /home/default
 
-    # Installs Confd
+# Installs Confd
 RUN wget https://github.com/kelseyhightower/confd/releases/download/v0.12.0-alpha3/confd-0.12.0-alpha3-linux-amd64 -O /usr/local/bin/confd && \
     chmod +x /usr/local/bin/confd && \
     mkdir -p /etc/confd/conf.d /etc/confd/templates
 
-
-# Environment variables
-#ENV PATH=/home/ambientum/.composer/vendor/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Define the entry point that tries to enable newrelic
 #ENTRYPOINT ["/tini", "--", "/scripts/start.sh"]
