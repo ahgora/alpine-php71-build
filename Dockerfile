@@ -10,7 +10,7 @@
 FROM alpine:3.5
 
 # Repository/Image Maintainer
-MAINTAINER Diego Hernandes <diego@hernandev.com>
+MAINTAINER Weslley Camilo
 
 # Variables for enabling NewRelic
 ENV XDEBUG_ENABLED=false \
@@ -106,11 +106,6 @@ RUN curl https://getcaddy.com | bash && \
 RUN wget https://github.com/kelseyhightower/confd/releases/download/v0.12.0-alpha3/confd-0.12.0-alpha3-linux-amd64 -O /usr/local/bin/confd && \
     chmod +x /usr/local/bin/confd && \
     mkdir -p /etc/confd/conf.d /etc/confd/templates
-
-
-
-# Define the running user
-#USER ambientum
 
 
 # Environment variables
