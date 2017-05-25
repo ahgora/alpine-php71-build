@@ -25,10 +25,13 @@ ENV XDEBUG_ENABLED=false \
 WORKDIR "/var/www/app"
 
 RUN chgrp -R 0 /var/www/app \
-  && chmod -R g+rwX /var/www/app
+  && chmod -R gu+rwX /var/www/app
+  #&& chmod -R g+rwX /var/www/app
 
 RUN adduser -G root -D -u 1001 default && \
-  chown -R default:root /var/www
+  chown -R gu+rwX  default:root /var/www
+#&& \
+  #chown -R g+rwX  default:root /var/www
 
 # Install PHP From DotDeb, Common Extensions, Composer and then cleanup
 RUN echo "---> Enabling PHP-Alpine" && \
