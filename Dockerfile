@@ -27,8 +27,9 @@ WORKDIR "/var/www/app"
 RUN chgrp -R 0 /var/www/app \
   && chmod -R g+rwX /var/www/app
 
-#RUN adduser -D -u 1001 default && \
-  #chown -R default:default /var/www
+RUN adduser -D -u 1001 default
+#&& \
+#  chown -R default:default /var/www
 
 # Install PHP From DotDeb, Common Extensions, Composer and then cleanup
 RUN echo "---> Enabling PHP-Alpine" && \
@@ -102,10 +103,8 @@ RUN echo "---> Enabling PHP-Alpine" && \
     rm -rf /tmp/*
 
 # Installs Caddy
-RUN curl https://getcaddy.com | bash
-
-#&& \
-#    chown -R 1001:1001 /home/default
+RUN curl https://getcaddy.com | bash && \
+    chown -R 1001:1001 /home/default
 
 # Installs Confd
 RUN wget https://github.com/kelseyhightower/confd/releases/download/v0.12.0-alpha3/confd-0.12.0-alpha3-linux-amd64 -O /usr/local/bin/confd && \
@@ -116,7 +115,7 @@ RUN wget https://github.com/kelseyhightower/confd/releases/download/v0.12.0-alph
 # Define the entry point that tries to enable newrelic
 #ENTRYPOINT ["/tini", "--", "/scripts/start.sh"]
 
-#USER 1001
+USER 1001
 
 
 # As non daemon and single base image, it may be used as cli container
