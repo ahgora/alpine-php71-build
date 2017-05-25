@@ -27,9 +27,8 @@ WORKDIR "/var/www/app"
 RUN chgrp -R 0 /var/www/app \
   && chmod -R g+rwX /var/www/app
 
-RUN adduser -D -u 1001 default
-#&& \
-#  chown -R default:default /var/www
+RUN adduser -D -u 1001 default && \
+  chown -R default:default /var/www
 
 # Install PHP From DotDeb, Common Extensions, Composer and then cleanup
 RUN echo "---> Enabling PHP-Alpine" && \
