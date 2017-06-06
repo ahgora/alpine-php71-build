@@ -93,16 +93,16 @@ RUN echo "---> Enabling PHP-Alpine" && \
     rm -rf /tmp/*
 
 
-# Application directory
-WORKDIR "/var/www/app"
+  # Application directory
+  WORKDIR "/var/www/app"
 
-RUN chgrp -R 0 /var/www \
-  && chmod -R gu+rwX /var/www
-  #&& chmod -R g+rwX /var/www/app
+  RUN chgrp -R 0 /var/www \
+    && chmod -R gu+rwX /var/www
+    #&& chmod -R g+rwX /var/www/app
 
-RUN adduser -G root -D -u 1001 default
-  #chown -R  default:root /var/www
-
+  RUN adduser -G root -D -u 1001 default && \
+    chown -R  default:root /var/www
+#adduser -g root -D -G root 1001
 
 # Installs Caddy
 RUN curl https://getcaddy.com | bash && \
