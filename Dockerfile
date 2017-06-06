@@ -21,16 +21,6 @@ ENV XDEBUG_ENABLED=false \
     COLORTERM=truecolor \
     COMPOSER_PROCESS_TIMEOUT=1200
 
-# Application directory
-WORKDIR "/var/www/app"
-
-RUN chgrp -R 0 /var/www \
-  && chmod -R gu+rwX /var/www
-  #&& chmod -R g+rwX /var/www/app
-
-RUN adduser -G root -D -u 1001 default && \
-  chown -R  default:root /var/www
-
 # Install PHP From DotDeb, Common Extensions, Composer and then cleanup
 RUN echo "---> Enabling PHP-Alpine" && \
     wget -O /etc/apk/keys/php-alpine.rsa.pub \
@@ -101,6 +91,18 @@ RUN echo "---> Enabling PHP-Alpine" && \
     sed -i "/upload_max_filesize = .*/c\upload_max_filesize = 1000M" /etc/php7/php.ini && \
     sed -i "/zend_extension=xdebug.so/c\;zend_extension=xdebug.so" /etc/php7/conf.d/00_xdebug.ini && \
     rm -rf /tmp/*
+
+
+# Application directory
+WORKDIR "/var/www/app"
+
+RUN chgrp -R 0 /var/www \
+  && chmod -R gu+rwX /var/www
+  #&& chmod -R g+rwX /var/www/app
+
+RUN adduser -G root -D -u 1001 default
+  #chown -R  default:root /var/www
+
 
 # Installs Caddy
 RUN curl https://getcaddy.com | bash && \
