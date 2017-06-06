@@ -87,8 +87,8 @@ RUN echo "---> Enabling PHP-Alpine" && \
   # Application directory
   WORKDIR "/var/www/app"
 
-  RUN chgrp -R 0 /var/www \
-    && chmod -R gu+rwX /var/www
+  #RUN chgrp -R 0 /var/www \
+  #  && chmod -R gu+rwX /var/www
     #&& chmod -R g+rwX /var/www/app
 
   # RUN adduser -G root -D -u 1001 default && \
