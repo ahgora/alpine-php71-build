@@ -84,32 +84,16 @@ RUN echo "---> Enabling PHP-Alpine" && \
     rm -rf /tmp/*
 
 
-  # Application directory
-  WORKDIR "/var/www/app"
-
-  #RUN chgrp -R 0 /var/www \
-  #  && chmod -R gu+rwX /var/www
-    #&& chmod -R g+rwX /var/www/app
-
-  # RUN adduser -G root -D -u 1001 default && \
-  #   chown -R  default:root /var/www
-#adduser -g root -D -G root 1001
+# Application directory
+WORKDIR "/var/www/app"
 
 # Installs Caddy
 RUN curl https://getcaddy.com | bash
-#&& \
-#    chown -R 1001:1001 /home/default
 
 # Installs Confd
 RUN wget https://github.com/kelseyhightower/confd/releases/download/v0.12.0-alpha3/confd-0.12.0-alpha3-linux-amd64 -O /usr/local/bin/confd && \
     chmod +x /usr/local/bin/confd && \
     mkdir -p /etc/confd/conf.d /etc/confd/templates
-
-
-
-
-# USER 1001
-
 
 # As non daemon and single base image, it may be used as cli container
 CMD ["/bin/bash"]
