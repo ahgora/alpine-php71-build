@@ -1,7 +1,7 @@
 FROM alpine:3.5
 
 # Repository/Image Maintainer
-MAINTAINER Weslley Camilo
+MAINTAINER Ahgora Sistemas
 
 # Variables for enabling NewRelic
 ENV XDEBUG_ENABLED=false \
